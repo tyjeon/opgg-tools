@@ -176,7 +176,7 @@ class OpggMatchupScraper:
     def parse_superior_data(self):
         temp_list = []
         superior_data = {}
-        
+
         for champion_id in self.matchup_data:
             if self.matchup_data[champion_id][5] == "1":
                 if len(temp_list) == 0:
@@ -196,7 +196,16 @@ class OpggMatchupScraper:
         with open("opgg_superior_data.json", encoding="utf-8", mode="w") as f:
             json.dump(superior_data, f, ensure_ascii=False)
 
+    def parse_counter_champion(self,champion_name):
+        for matchup_name in self.matchup_data:
+            if self.matchup_data[matchup_name][1] == champion_name:
+                if self.matchup_data[matchup_name][5] == "-1":
+                    print(self.matchup_data[matchup_name])
+
+
+                
 
 if __name__ == "__main__":
     opgg_scraper = OpggMatchupScraper()
-    opgg_scraper.get_best_combination(4)
+    # opgg_scraper.get_best_combination(4)
+    opgg_scraper.parse_counter_champion("퀸")
